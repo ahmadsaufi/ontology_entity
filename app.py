@@ -13,6 +13,9 @@ import os
 import pandas as pd
 from entity_ontology import OntologyBuilder
 import google.generativeai as genai
+from dotenv import load_dotenv
+
+load_dotenv()  # take environment variables
 
 app = Flask(__name__)
 ontology_builder = OntologyBuilder()
@@ -412,8 +415,8 @@ def generate(payload):
 def ask_gemini():
     try:
         # Configure Gemini API
-        genai.configure(api_key='')
-        #genai.configure(api_key=os.environ['API_KEY'])
+        # genai.configure(api_key='')
+        genai.configure(api_key=os.environ['API_KEY'])
         model = genai.GenerativeModel('gemini-1.5-flash')
         
         # in-context learning
