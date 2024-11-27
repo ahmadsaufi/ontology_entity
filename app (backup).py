@@ -413,32 +413,20 @@ def ask_gemini():
     try:
         # Configure Gemini API
         genai.configure(api_key='')
-        #genai.configure(api_key=os.environ['API_KEY'])
-        model = genai.GenerativeModel('gemini-1.5-flash')
+        model = genai.GenerativeModel('gemini-pro')
         
-        # in-context learning
-        with open('./data/SDPO v1.1.ttl', encoding='utf-8') as file:
-            sdpo = file.read()
-        with open('./data/sistem_rujukan_statistik.ttl', encoding='utf-8') as file:
-            sirusa1 = file.read()
-        with open('./data/sistem rujukan statistik-sql server r2rml 2.ttl', encoding='utf-8') as file:
-            sirusa2 = file.read()
-
         # Get database metadata
         metadata = get_database_metadata()
         
         # Construct the prompt
-        prompt = "Pelajari ontologi global SDPO berikut:\n\n"+ sdpo
-        prompt += "Pelajari ontologi lokal Sirusa yang dibuat berdasarkan file SDPO dan r2rml, terdiri dari 2 file, yaitu:\n 1) file ontologi struktur berdasarkan SDPO:\n\n" + sirusa1 + "\n\n dan 2) file ontologi mapping yang dibuat menggunakan r2rml\n\n" + sirusa2
-        
-        prompt += "Saya punya tabel-tabel berikut:\n\n"
+        prompt = "Saya punya tabel-tabel berikut:\n\n"
         
         for table, info in metadata.items():
             prompt += f"CREATE TABLE {table} (\n"
             prompt += ",\n".join([f"  {field} varchar(255)" for field in info['fields']])
             prompt += "\n);\n\n"
         
-        prompt += """Buatkan ontologi lokal dalam format Turtle (.ttl) dari skema tabel di atas, berdasarkan ontologi global dan contoh ontologi lokal yang sudah dipelajari.
+        prompt += """Buatkan ontologi dalam format Turtle (.ttl) berdasarkan skema tabel di atas.
                     Pastikan hasilnya adalah RDF/Turtle yang valid dengan:
                     1. Prefix dan namespace yang benar
                     2. Class untuk setiap tabel

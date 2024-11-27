@@ -1,201 +1,184 @@
 ```ttl
+@prefix sirusa: <https://bps.go.id/metadata/sirusa/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix mit: <http://example.org/master_indikators#> .
-@prefix mic1: <http://example.org/master_indikators_copy1#> .
-@prefix mkg: <http://example.org/master_kegiatans#> .
-@prefix sds: <http://example.org/standar_data_statistik_nasionals#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix gsim-sum: <https://w3id.org/italia/onto/gsim-sum#> .
+@prefix gsim: <http://rdf.unece.org/models/gsim#> .
+@prefix : <https://w3id.org/sdp/core#> .
 
-# Define classes
-mit:MasterIndikators a rdfs:Class ;
+
+# Classes for each table
+sirusa:MasterIndikator a rdfs:Class ;
     rdfs:label "Master Indikator" .
 
-mic1:MasterIndikatorsCopy1 a rdfs:Class ;
-    rdfs:label "Master Indikator Copy 1" .
-
-mkg:MasterKegiatans a rdfs:Class ;
+sirusa:MasterKegiatan a rdfs:Class ;
     rdfs:label "Master Kegiatan" .
 
-sds:StandarDataStatistikNasional a rdfs:Class ;
+sirusa:MetadataVariabel a rdfs:Class ;
+    rdfs:label "Metadata Variabel" .
+
+sirusa:StandarDataStatistikNasional a rdfs:Class ;
     rdfs:label "Standar Data Statistik Nasional" .
 
-# Define properties
-mit:id a rdf:Property ;
+
+# Properties for each column and relationships between tables
+
+# master_indikator
+sirusa:id a rdf:Property ;
     rdfs:label "ID" ;
-    rdfs:domain mit:MasterIndikators ;
+    rdfs:domain sirusa:MasterIndikator ;
     rdfs:range xsd:string .
 
-mit:id_mskeg a rdf:Property ;
-    rdfs:label "ID MSKEG" ;
-    rdfs:domain mit:MasterIndikators ;
-    rdfs:range xsd:string .
+sirusa:id_mskeg a rdf:Property ;
+    rdfs:label "ID Kegiatan" ;
+    rdfs:domain sirusa:MasterIndikator ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Foreign key referencing master_kegiatan" .
 
-mit:nama a rdf:Property ;
+sirusa:nama a rdf:Property ;
     rdfs:label "Nama" ;
-    rdfs:domain mit:MasterIndikators ;
+    rdfs:domain sirusa:MasterIndikator ;
     rdfs:range xsd:string .
 
-mit:konsep a rdf:Property ;
+sirusa:konsep a rdf:Property ;
     rdfs:label "Konsep" ;
-    rdfs:domain mit:MasterIndikators ;
+    rdfs:domain sirusa:MasterIndikator ;
     rdfs:range xsd:string .
 
-mit:definisi a rdf:Property ;
+sirusa:definisi a rdf:Property ;
     rdfs:label "Definisi" ;
-    rdfs:domain mit:MasterIndikators ;
+    rdfs:domain sirusa:MasterIndikator ;
     rdfs:range xsd:string .
 
-mit:produsen_data_name a rdf:Property ;
-    rdfs:label "Produsen Data Name" ;
-    rdfs:domain mit:MasterIndikators ;
+sirusa:produsen_data_name a rdf:Property ;
+    rdfs:label "Nama Produsen Data" ;
+    rdfs:domain sirusa:MasterIndikator ;
     rdfs:range xsd:string .
 
-mit:produsen_data_province_code a rdf:Property ;
-    rdfs:label "Produsen Data Province Code" ;
-    rdfs:domain mit:MasterIndikators ;
+sirusa:produsen_data_province_code a rdf:Property ;
+    rdfs:label "Kode Provinsi Produsen Data" ;
+    rdfs:domain sirusa:MasterIndikator ;
     rdfs:range xsd:string .
 
-mit:produsen_data_city_code a rdf:Property ;
-    rdfs:label "Produsen Data City Code" ;
-    rdfs:domain mit:MasterIndikators ;
+sirusa:produsen_data_city_code a rdf:Property ;
+    rdfs:label "Kode Kota Produsen Data" ;
+    rdfs:domain sirusa:MasterIndikator ;
     rdfs:range xsd:string .
 
-mit:last_sync a rdf:Property ;
-    rdfs:label "Last Sync" ;
-    rdfs:domain mit:MasterIndikators ;
+sirusa:last_sync a rdf:Property ;
+    rdfs:label "Terakhir Sinkronisasi" ;
+    rdfs:domain sirusa:MasterIndikator ;
     rdfs:range xsd:string .
 
-mit:created_at a rdf:Property ;
-    rdfs:label "Created At" ;
-    rdfs:domain mit:MasterIndikators ;
-    rdfs:range xsd:string .
+sirusa:created_at a rdf:Property ;
+    rdfs:label "Dibuat Pada" ;
+    rdfs:domain sirusa:MasterIndikator ;
+    rdfs:range xsd:dateTime .
 
-mit:updated_at a rdf:Property ;
-    rdfs:label "Updated At" ;
-    rdfs:domain mit:MasterIndikators ;
-    rdfs:range xsd:string .
+sirusa:updated_at a rdf:Property ;
+    rdfs:label "Diperbarui Pada" ;
+    rdfs:domain sirusa:MasterIndikator ;
+    rdfs:range xsd:dateTime .
 
-mit:status a rdf:Property ;
+sirusa:status a rdf:Property ;
     rdfs:label "Status" ;
-    rdfs:domain mit:MasterIndikators ;
+    rdfs:domain sirusa:MasterIndikator ;
     rdfs:range xsd:string .
 
-mit:submission_period a rdf:Property ;
-    rdfs:label "Submission Period" ;
-    rdfs:domain mit:MasterIndikators ;
+sirusa:submission_period a rdf:Property ;
+    rdfs:label "Periode Pengumpulan Data" ;
+    rdfs:domain sirusa:MasterIndikator ;
     rdfs:range xsd:string .
 
-mic1:id a rdf:Property ;
-    rdfs:label "ID" ;
-    rdfs:domain mic1:MasterIndikatorsCopy1 ;
-    rdfs:range xsd:string .
 
-mic1:id_mskeg a rdf:Property ;
-    rdfs:label "ID MSKEG" ;
-    rdfs:domain mic1:MasterIndikatorsCopy1 ;
-    rdfs:range xsd:string .
-
-mic1:nama a rdf:Property ;
-    rdfs:label "Nama" ;
-    rdfs:domain mic1:MasterIndikatorsCopy1 ;
-    rdfs:range xsd:string .
-
-mic1:konsep a rdf:Property ;
-    rdfs:label "Konsep" ;
-    rdfs:domain mic1:MasterIndikatorsCopy1 ;
-    rdfs:range xsd:string .
-
-mic1:definisi a rdf:Property ;
-    rdfs:label "Definisi" ;
-    rdfs:domain mic1:MasterIndikatorsCopy1 ;
-    rdfs:range xsd:string .
-
-mic1:produsen_data_name a rdf:Property ;
-    rdfs:label "Produsen Data Name" ;
-    rdfs:domain mic1:MasterIndikatorsCopy1 ;
-    rdfs:range xsd:string .
-
-mic1:produsen_data_province_code a rdf:Property ;
-    rdfs:label "Produsen Data Province Code" ;
-    rdfs:domain mic1:MasterIndikatorsCopy1 ;
-    rdfs:range xsd:string .
-
-mic1:produsen_data_city_code a rdf:Property ;
-    rdfs:label "Produsen Data City Code" ;
-    rdfs:domain mic1:MasterIndikatorsCopy1 ;
-    rdfs:range xsd:string .
-
-mic1:last_sync a rdf:Property ;
-    rdfs:label "Last Sync" ;
-    rdfs:domain mic1:MasterIndikatorsCopy1 ;
-    rdfs:range xsd:string .
-
-mic1:created_at a rdf:Property ;
-    rdfs:label "Created At" ;
-    rdfs:domain mic1:MasterIndikatorsCopy1 ;
-    rdfs:range xsd:string .
-
-mic1:updated_at a rdf:Property ;
-    rdfs:label "Updated At" ;
-    rdfs:domain mic1:MasterIndikatorsCopy1 ;
-    rdfs:range xsd:string .
-
-mic1:status a rdf:Property ;
-    rdfs:label "Status" ;
-    rdfs:domain mic1:MasterIndikatorsCopy1 ;
-    rdfs:range xsd:string .
-
-mic1:submission_period a rdf:Property ;
-    rdfs:label "Submission Period" ;
-    rdfs:domain mic1:MasterIndikatorsCopy1 ;
-    rdfs:range xsd:string .
-
-mkg:id a rdf:Property ;
-    rdfs:label "ID" ;
-    rdfs:domain mkg:MasterKegiatans ;
-    rdfs:range xsd:string .
-
-mkg:periode_input a rdf:Property ;
+# master_kegiatan
+sirusa:periode_input a rdf:Property ;
     rdfs:label "Periode Input" ;
-    rdfs:domain mkg:MasterKegiatans ;
+    rdfs:domain sirusa:MasterKegiatan ;
     rdfs:range xsd:string .
 
-mkg:judul_kegiatan a rdf:Property ;
+sirusa:judul_kegiatan a rdf:Property ;
     rdfs:label "Judul Kegiatan" ;
-    rdfs:domain mkg:MasterKegiatans ;
+    rdfs:domain sirusa:MasterKegiatan ;
     rdfs:range xsd:string .
 
-mkg:tahun_kegiatan a rdf:Property ;
+sirusa:tahun_kegiatan a rdf:Property ;
     rdfs:label "Tahun Kegiatan" ;
-    rdfs:domain mkg:MasterKegiatans ;
-    rdfs:range xsd:string .
+    rdfs:domain sirusa:MasterKegiatan ;
+    rdfs:range xsd:integer .
 
-mkg:jenis_statistik a rdf:Property ;
+sirusa:jenis_statistik a rdf:Property ;
     rdfs:label "Jenis Statistik" ;
-    rdfs:domain mkg:MasterKegiatans ;
+    rdfs:domain sirusa:MasterKegiatan ;
     rdfs:range xsd:string .
 
-mkg:cara_pengumpulan_data a rdf:Property ;
+sirusa:cara_pengumpulan_data a rdf:Property ;
     rdfs:label "Cara Pengumpulan Data" ;
-    rdfs:domain mkg:MasterKegiatans ;
+    rdfs:domain sirusa:MasterKegiatan ;
     rdfs:range xsd:string .
 
-mkg:pj_jabatan a rdf:Property ;
-    rdfs:label "PJ Jabatan" ;
-    rdfs:domain mkg:MasterKegiatans ;
+sirusa:pj_jabatan a rdf:Property ;
+    rdfs:label "Penanggung Jawab Jabatan" ;
+    rdfs:domain sirusa:MasterKegiatan ;
     rdfs:range xsd:string .
 
-mkg:tujuan_kegiatan a rdf:Property ;
+sirusa:tujuan_kegiatan a rdf:Property ;
     rdfs:label "Tujuan Kegiatan" ;
-    rdfs:domain mkg:MasterKegiatans ;
+    rdfs:domain sirusa:MasterKegiatan ;
     rdfs:range xsd:string .
 
-mkg:status a rdf:Property ;
-    rdfs:label "Status" ;
-    rdfs:domain mkg:MasterKegiatans ;
+
+# metadata_variabel
+# properties are the same as master_indikator, so they are not repeated
+
+
+# standar_data_statistik_nasional
+sirusa:kodeSds a rdf:Property ;
+    rdfs:label "Kode SDS" ;
+    rdfs:domain sirusa:StandarDataStatistikNasional ;
     rdfs:range xsd:string .
 
-mkg:produsen_data_name a rdf:Property ;
-    rdfs:label "Produsen Data Name" ;
-    rdfs:domain mkg:MasterKe
+sirusa:namaData a rdf:Property ;
+    rdfs:label "Nama Data" ;
+    rdfs:domain sirusa:StandarDataStatistikNasional ;
+    rdfs:range xsd:string .
+
+sirusa:klasifikasiPenyajian a rdf:Property ;
+    rdfs:label "Klasifikasi Penyajian" ;
+    rdfs:domain sirusa:StandarDataStatistikNasional ;
+    rdfs:range xsd:string .
+
+sirusa:klasifikasiIsian a rdf:Property ;
+    rdfs:label "Klasifikasi Isian" ;
+    rdfs:domain sirusa:StandarDataStatistikNasional ;
+    rdfs:range xsd:string .
+
+sirusa:ukuran a rdf:Property ;
+    rdfs:label "Ukuran" ;
+    rdfs:domain sirusa:StandarDataStatistikNasional ;
+    rdfs:range xsd:string .
+
+sirusa:satuan a rdf:Property ;
+    rdfs:label "Satuan" ;
+    rdfs:domain sirusa:StandarDataStatistikNasional ;
+    rdfs:range xsd:string .
+
+
+```
+
+**Penjelasan Tambahan:**
+
+Ontologi ini masih sederhana.  Untuk ontologi yang lebih komprehensif, Anda perlu menambahkan:
+
+* **Lebih banyak relasi:**  Analisis lebih dalam pada hubungan antar tabel mungkin diperlukan untuk membangun relasi yang lebih kompleks dan akurat.  Contohnya, hubungan antara `sirusa:MasterIndikator` dan `sirusa:MasterKegiatan`  bisa didefinisikan lebih tepat daripada hanya `sirusa:id_mskeg` sebagai foreign key.  Pertimbangkan penggunaan properti seperti  `rdfs:subClassOf` atau properti objek lainnya yang sesuai dengan semantik data.
+
+* **Tipe data yang lebih spesifik:**  Gunakan tipe data XSD yang lebih spesifik daripada `xsd:string`  di mana memungkinkan (misalnya, `xsd:integer`, `xsd:date`, `xsd:boolean`).
+
+* **Domain terkontrol:** Gunakan skema vokabulari terkontrol (misalnya, SKOS) untuk merepresentasikan nilai-nilai dalam kolom tertentu seperti `sirusa:jenis_statistik` dan `sirusa:cara_pengumpulan_data`. Ini akan meningkatkan interoperabilitas dan konsistensi data.
+
+* **Definisi yang lebih kaya:** Tambahkan definisi yang lebih detail (menggunakan `rdfs:comment` atau `skos:definition`) untuk menjelaskan semantik dari setiap kelas dan properti.
+
+* **Hierarki kelas:** Gunakan  `rdfs:subClassOf` untuk membuat hierarki kelas jika ada.  Misalnya, jika ada beberapa jenis cara pengumpulan data, Anda dapat membuat subkelas dari `gsim:ExchangeInstrumen`.
+
+Ingatlah untuk mengganti  `xsd:string` dengan tipe data XSD yang sesuai untuk setiap kolom di tabel Anda.  Contoh ontologi lokal yang diberikan hanya memberikan contoh struktur dasar.  Anda perlu menyesuaikannya dengan kebutuhan dan kompleksitas data Anda.  Penggunaan tools seperti R2RML membantu dalam proses pemetaan.
